@@ -12,9 +12,12 @@
 <div class="container">
 	<div class="flex">
 		<div class="left">
-		  <div class="imessage"></div>
+		  <div class="imessage">
+		  	<p class="from-them spacer" style="opacity: 0; user-select: none;">hi</p>
+		  </div>
 		  <span class="input">
-		   		<input type="text" placeholder="Message">
+		   		<!-- <input class="message" type="text" placeholder="Message"> -->
+		   		<textarea class="message" placeholder="Message"></textarea>
 		   		<img class="send">
 		  </span>
 		</div>
@@ -25,9 +28,16 @@
 				<p>Clone your friends. Powered by GPT-3.</p>
 				<span class="arrow down"></span>
 			</div>
+			<div class="upload" style="display: none; position: absolute;">
+				upload.
+			</div>
 		</div>
 	</div>
 </div>
 <script src="js/script.js"></script>
+<script src="js/sql-wasm.js"></script>
+<script type="module">
+	// alert(1);
+</script>
 </body>
 </html>

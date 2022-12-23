@@ -1,5 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+@keyframes slide-up-out {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(-200px);
+	}
+}
+
+@keyframes slide-up-in {
+	0% {
+		opacity: 0;
+		transform: translateY(200px);
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.upload.show {
+	display: block!important;
+	animation: 0.5s slide-up-in forwards;
+}
+
+.teaser.hidden .arrow {
+	display: none;
+}
+
+.teaser.hidden {
+	animation: 0.5s slide-up-out forwards;
+}
+
 html {
 	overflow: hidden;
 }
@@ -16,6 +51,10 @@ p {
 	font-weight: 400;
 	font-size: 1rem;
 	margin: 0 0 0 5px;
+}
+
+.arrow:hover {
+	cursor: pointer;
 }
 
 .arrow {

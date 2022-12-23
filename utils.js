@@ -13,8 +13,7 @@ async function processChatDB(number) {
 }
 
 async function processConvo(chatHistory, namespace) {
-	let chunks = chunkize(chatHistory);
-
+	let chunks = chunkize(chatHistory).filter(x=>x);
 	console.log(`${chunks.length} chunk(s)`);
 
 	let reqSize = 1000; // axios ECONNRESET if reqSize is too large

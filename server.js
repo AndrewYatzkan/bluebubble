@@ -5,8 +5,20 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+app.use(express.static('public'));
+app.use(express.json());
+
 app.get('/', (req, res) => {
 	res.send('Hello World!');
+});
+
+app.post('/completion', async (req, res) => {
+	let { input } = req.body;
+	if (!input) return res.sendStatus(400);
+
+	// let output = await chat('test_namespace_john_1', input);
+	let output = await chat('smtz', input);
+	return res.send({response: output});
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
