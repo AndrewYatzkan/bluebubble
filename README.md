@@ -1,6 +1,6 @@
 # BlueBubble
 
-Website: [BlueBubble.ai](https://bluebubble.ai/)
+Website: [--not yet registered--](https://bluebubble.ai/)
 
 ## How it works
 BlueBubble creates a realistic continuation of iMessage conversations using OpenAI's GPT-3 model in concert with their embeddings API to feed relevant information into the pre-prompt.
