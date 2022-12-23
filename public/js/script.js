@@ -21,6 +21,7 @@ function addMessage(content, received, emoji, unsafe) {
 }
 
 function clearChat() {
+	abort();
 	document.querySelectorAll('p.from-them:not(.spacer), p.from-me').forEach(x => x.remove());
 }
 
@@ -68,6 +69,7 @@ async function sendMessage() {
 	input.value = '';
 	input.parentElement.style.height = `1rem`;
 
+	if (value.trim() == '/clear') return clearChat();
 	if (value.trim() == '') return;
 	if (!welcomeCleared) {
 		welcomeCleared = true;
@@ -88,10 +90,13 @@ async function sendMessage() {
 	let delay = 1000;
 
 	lock = true;
+	let j = 0;
 	for (let i in messages) {
 		let message = messages[i].trim();
+		if (!message && ++j) continue;
+		let n = parseInt(i) - j;
 		let emoji = EMOJI_REGEX.test(message.replace(/\s/g, ''));
-		setTimeout(() => addMessage(message, true, emoji), i * delay);
+		setTimeout(() => addMessage(message, true, emoji), n * delay);
 	}
 	setTimeout(() => lock = false, (messages.length - 1) * delay);
 }
