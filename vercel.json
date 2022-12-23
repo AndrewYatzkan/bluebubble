@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node",
+      "config": { "includeFiles": ["utils.js", "pinecone.js", "gpt.js", "embeddings.js", "db.js", "config.js"] }
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static",
+      "config": { "includeFiles": ["public/**"] }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "public/index.html"
+    },
+    {
+      "src": "/css/style.css",
+      "dest": "public/css/style.css"
+    },
+    {
+      "src": "/css/imessage.css",
+      "dest": "public/css/imessage.css"
+    },
+    {
+      "src": "/js/script.js",
+      "dest": "public/js/script.js"
+    },
+    {
+      "src": "/assets/background.png",
+      "dest": "public/assets/background.png"
+    },
+    {
+      "src": "/assets/bubble-cloud.png",
+      "dest": "public/assets/bubble-cloud.png"
+    },
+    {
+      "src": "/assets/container-background.png",
+      "dest": "public/assets/container-background.png"
+    },
+    {
+      "src": "/assets/send-message.png",
+      "dest": "public/assets/send-message.png"
+    },
+    {
+      "src": "/assets/favicon.png",
+      "dest": "public/assets/favicon.png"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ]
+}
