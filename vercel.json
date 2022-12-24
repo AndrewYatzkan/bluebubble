@@ -46,8 +46,8 @@
       "dest": "public/assets/bubble-cloud.png"
     },
     {
-      "src": "/assets/container-background.png",
-      "dest": "public/assets/container-background.png"
+      "src": "/assets/container-background.svg",
+      "dest": "public/assets/container-background.svg"
     },
     {
       "src": "/assets/send-message.png",
