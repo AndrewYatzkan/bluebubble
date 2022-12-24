@@ -30,6 +30,14 @@
       "dest": "public/js/script.js"
     },
     {
+      "src": "/js/sql-wasm.js",
+      "dest": "public/js/sql-wasm.js"
+    },
+    {
+      "src": "/sql-wasm.wasm",
+      "dest": "public/sql-wasm.wasm"
+    },
+    {
       "src": "/assets/background.png",
       "dest": "public/assets/background.png"
     },
