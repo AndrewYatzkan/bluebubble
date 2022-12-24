@@ -12,6 +12,7 @@
 <div class="container">
 	<div class="flex">
 		<div class="left">
+		  	<!-- <span class="to">To: +1630XXXXXXX</span> -->
 		  <div class="imessage">
 		  	<p class="from-them spacer" style="opacity: 0; user-select: none;">hi</p>
 		  </div>
@@ -24,12 +25,21 @@
 		<div class="right">
 			<img class="bubble-cloud" style="width: 300px; height: 300px;">
 			<div class="teaser">
+			<!-- <div class="teaser" style="display: none;"> -->
 				<h1>BlueBubble</h1>
 				<p>Clone your friends. Powered by GPT-3.</p>
 				<span class="arrow down"></span>
 			</div>
 			<div class="upload" style="display: none; position: absolute;">
-				upload.
+			<!-- <div class="upload" style="position: absolute;"> -->
+				<input type="file">
+				<br>
+				<input type="text" name="number" list="numbers">
+				<datalist id="numbers">
+					<!-- <option></option> -->
+				</datalist>
+				<br>
+				<button>Analyze</button>
 			</div>
 		</div>
 	</div>
@@ -37,7 +47,101 @@
 <script src="js/script.js"></script>
 <script src="js/sql-wasm.js"></script>
 <script type="module">
-	// alert(1);
+	// Load sql.js module and database
+	const sqlPromise = initSqlJs({
+		locateFile: file => `./${file}`
+	});
+	const dataPromise = waitForUpload();
+	const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+	const db = new SQL.Database(new Uint8Array(buf));
+
+	const analyze = document.querySelector('button');
+	const input = document.querySelector('input[name=number]');
+
+	function getNumbers() {
+		let numbers = [];
+		var stmt = db.prepare(`SELECT DISTINCT chat_identifier FROM chat WHERE chat_identifier LIKE '+%'`);
+		while (stmt.step()) {
+			var row = stmt.getAsObject();
+			numbers.push(row.chat_identifier);
+		}
+		stmt.free(); // prevent memory leaks
+		return numbers;
+	}
+
+	function addOption(text, datalist) {
+		let option = document.createElement('option');
+		option.text = text;
+		datalist.appendChild(option)
+	}
+
+	function getChats(number) {
+		var stmt = db.prepare(`SELECT
+				datetime (message.date / 1000000000 + strftime ("%s", "2001-01-01"), "unixepoch", "localtime") AS message_date,
+				message.text,
+				message.is_from_me,
+				chat.chat_identifier
+			FROM
+				chat
+				JOIN chat_message_join ON chat. "ROWID" = chat_message_join.chat_id
+				JOIN message ON chat_message_join.message_id = message. "ROWID"
+			WHERE
+				chat_identifier == $number
+			ORDER BY
+				message_date ASC
+			--LIMIT 10;`);
+		stmt.getAsObject({$number: number});
+
+		let chats = [];
+		while (stmt.step()) {
+			var row = stmt.getAsObject();
+			if (!row.text?.trim()) continue;
+			chats.push(`${row.is_from_me ? '* ME:' : `* YOU:`} ${row.text}`);
+		}
+		stmt.free(); // prevent memory leaks
+		return chats;
+	}
+
+	async function embed(chats, ns) {
+		let req = await fetch('/embed', {
+		    method: 'POST',
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({chats, number: ns})
+		});
+		let {success} = await req.json();
+		return success;
+	}
+	
+	let numbers = getNumbers();
+	numbers.forEach(x => addOption(x, document.querySelector('datalist')));
+
+	analyze.onclick = async () => {
+		let number = input.value.trim();
+		console.log(numbers, number);
+		if (!numbers.includes(number)) return alert('invalid number');
+		alert(`analyzing ${number}`);
+		let chats = getChats(number);
+		let success = await embed(chats, number);
+		if (!success) return alert('error');
+		clearChat();
+		addMessage(`Number ${number} loaded. Type /clear to remove this message, then start chatting!`, true);
+	}
+
+	function waitForUpload() {
+		return new Promise((resolve, reject) => {
+			document.querySelector('input').addEventListener('change', function() {
+				var reader = new FileReader();
+				reader.onload = function() {
+					var arrayBuffer = this.result;
+					console.log(arrayBuffer);
+					resolve(arrayBuffer);
+				}
+				reader.readAsArrayBuffer(this.files[0]);
+				}, false);
+			});
+	}
 </script>
 </body>
 </html>

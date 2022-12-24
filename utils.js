@@ -78,4 +78,4 @@ function chunkize(arr) {
 	return chunks;
 }
 
-module.exports = { getPrePrompt };
+module.exports = { getPrePrompt, processChatDB, processConvo };

@@ -8,7 +8,7 @@ async function chat(namespace, message) {
 	console.log('SEARCH QUERY:', searchQuery);
 	prompt += await getPrePrompt(namespace, searchQuery);
 	prompt += `\n\n* ME: ${message}\n* YOU:`;
-	// console.log(prompt);
+	console.log(prompt);
 	const response = await openai.createCompletion({
 		model: process.env.OPENAI_COMPLETION_MODEL,
 		prompt,
