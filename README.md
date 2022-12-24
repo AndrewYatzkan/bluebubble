@@ -7,6 +7,11 @@ BlueBubble creates a realistic continuation of iMessage conversations using Open
 
 ## To-do
 - Misc
+	- [ ] Share URL to let others chat with your bot
+		- Important feature because you can't currently train a chat from your phone, and we want mobile users to be able to use this
+		- Note: with some prompt injection, you could leak the preprompt
+			- Responses would be truncated, and the injection would be part of the search query, so would be difficult to extract a meaningful chunk of conversation history in practice, but nonetheless a security risk
+			- Make this risk clear to the user
 	- [ ] Investigate incomplete chat.db's (seemingly random messages missing)
 	- [ ] Use cl100k_base tokenizer for embeddings (low priority)
 		- Using GPT-3 tokenizer as a proxy, which overestimates the number of tokens
