@@ -66,6 +66,7 @@ img.send {
   background-color: #fff;
 /*  border: 1px solid #e5e5ea;*/
 /*  border-radius: 0.25rem;*/
+  border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   display: flex;
@@ -211,19 +212,6 @@ body {
   margin: 0 auto;
   max-width: 600px;
   padding: 1rem;
-}
-
-h1 {
-  font-weight: normal;
-  margin-bottom: 0.5rem;
-}
-
-h2 {
-  border-bottom: 1px solid #e5e5ea;
-  color: #666;
-  font-weight: normal;
-  margin-top: 0;
-  padding-bottom: 1.5rem;
 }
 
 .comment {
