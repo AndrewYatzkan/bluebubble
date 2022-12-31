@@ -17,6 +17,7 @@ BlueBubble creates a realistic continuation of iMessage conversations using Open
 		- Using GPT-3 tokenizer as a proxy, which overestimates the number of tokens
 		- Probably wouldn't ever want to max out single embedding size anyway
 - UI/UX
+	- [ ] Padding on up/down arrows
 	- [ ] Remove extra space when word wraps in text ([example](https://i.stack.imgur.com/fWKfj.png))
 	- [ ] Scroll to next/prev page
 	- [ ] UI options to adjust temperature and `topK`
