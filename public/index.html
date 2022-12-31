@@ -35,7 +35,8 @@
 			<div class="upload-container hidden-down" style="display: none;">
 				<div class="upload" style="position: absolute; flex-direction: row;">
 					<div style="display: flex; flex-direction: column; width: 140px;">
-						<span class="cdb">Upload <a target="_blank" href="#">chat.db file</a></span><input type="file">
+						<span class="cdb">~/Library/Messages/chat.db</span>
+						<button class="file-upload" onclick="this.nextSibling.click();">Upload chat.db file</button><input type="file" accept=".db">
 						<br>
 						<input placeholder="Phone number" class="number-input" type="text" name="number" list="numbers">
 						<datalist id="numbers">
@@ -46,7 +47,7 @@
 					</div>
 					<div style="display: flex; flex-direction: column; margin-left: 8px;">
 						<!-- TODO: change to whichever element lets you view all at once -->
-						<select class="saved">
+						<select class="saved" multiple>
 							<option>test</option>
 						</select>
 						<button class="load">Load</button>

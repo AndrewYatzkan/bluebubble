@@ -176,6 +176,7 @@ body {
 
 span.cdb {
 	margin-bottom: 10px;
+	font-size: 0.65rem;
 }
 
 span.cdb a {
@@ -198,11 +199,19 @@ button.load {
 	position: absolute;
 	bottom: 1rem;
 	height: 2rem;
-	width: 12ch;
+	width: 13ch;
 }
 
+input[type=file] {
+	display: none;
+}
+
+/*button.file-upload {
+
+}*/
+
 .saved {
-	width: 12ch;
+	width: 13ch;
 	height: calc(100% - 2rem - 8px);
 }
 
