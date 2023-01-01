@@ -12,12 +12,10 @@
 <div class="container">
 	<div class="flex">
 		<div class="left">
-		  	<!-- <span class="to">To: +1630XXXXXXX</span> -->
 		  <div class="imessage">
 		  	<p class="from-them spacer" style="opacity: 0; user-select: none;">hi</p>
 		  </div>
 		  <span class="input">
-		   		<!-- <input class="message" type="text" placeholder="Message"> -->
 		   		<textarea class="message" placeholder="Message"></textarea>
 		   		<img class="send">
 		  </span>
@@ -27,10 +25,8 @@
 			<div class="arrow-container"><span style="display: none" class="arrow up"></span></div>
 			<div class="arrow-container"><span data-text="&nbsp;Get Started" class="arrow down"></span></div>
 			<div class="teaser">
-			<!-- <div class="teaser" style="display: none;"> -->
 				<h1>BlueBubble</h1>
 				<p>Clone your friends. Powered by GPT-3.</p>
-				<!-- <span class="arrow down"></span> -->
 			</div>
 			<div class="upload-container hidden-down" style="display: none;">
 				<div class="upload" style="position: absolute; flex-direction: row;">
@@ -81,17 +77,30 @@
 	populateSaved();
 
 
-	// Load sql.js module and database
-	const sqlPromise = initSqlJs({
-		locateFile: file => `./${file}`
-	});
-	const dataPromise = waitForUpload();
-	const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
-	const db = new SQL.Database(new Uint8Array(buf));
 
 	const analyze = document.querySelector('button.analyze');
 	const load = document.querySelector('button.load');
 	const input = document.querySelector('input[name=number]');
+
+	let db, numbers;
+
+	async function waitForChatDB() {
+		// Load sql.js module and database
+		const sqlPromise = initSqlJs({
+			locateFile: file => `./${file}`
+		});
+		const dataPromise = waitForUpload();
+		const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+		db = new SQL.Database(new Uint8Array(buf));
+
+		numbers = getNumbers();
+		let datalist = document.querySelector('datalist');
+		datalist.innerHTML = '';
+		numbers.forEach(x => addOption(x, datalist));
+		waitForChatDB();
+	}
+
+	waitForChatDB();
 
 	function getNumbers() {
 		let numbers = [];
@@ -156,11 +165,6 @@
 
 		return success;
 	}
-	
-	let numbers = getNumbers();
-	let datalist = document.querySelector('datalist');
-	datalist.innerHTML = '';
-	numbers.forEach(x => addOption(x, datalist));
 
 	analyze.onclick = async () => {
 		let number = input.value.trim();
