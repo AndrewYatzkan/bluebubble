@@ -13,6 +13,7 @@ BlueBubble creates a realistic continuation of iMessage conversations using Open
 			- Responses would be truncated, and the injection would be part of the search query, so would be difficult to extract a meaningful chunk of conversation history in practice, but nonetheless a security risk
 			- Make this risk clear to the user
 	- [ ] Investigate incomplete chat.db's (seemingly random messages missing)
+		- [Useful Reddit thread](https://www.reddit.com/r/osx/comments/uevy32/texts_are_missing_from_mac_chatdb_file_despite/) (macOS Ventura problem?)
 	- [ ] Use cl100k_base tokenizer for embeddings (low priority)
 		- Using GPT-3 tokenizer as a proxy, which overestimates the number of tokens
 		- Probably wouldn't ever want to max out single embedding size anyway
